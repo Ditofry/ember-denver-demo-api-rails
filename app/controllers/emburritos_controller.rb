@@ -9,7 +9,8 @@ class EmburritosController < ApplicationController
     render json: Emburrito.all
   end
 
-  def show # set_emburrito takes care of everything
+  def show
+    render json: @emburrito
   end
 
   ##############################
@@ -27,7 +28,7 @@ class EmburritosController < ApplicationController
 
   def update
     if @emburrito.update(emburrito_params)
-      render :nothing => true, status: :ok
+      render json: @emburrito, status: :ok
     else
       render json: @emburrito.errors, status: :unprocessable_entity
     end
@@ -40,7 +41,7 @@ class EmburritosController < ApplicationController
 
   private
     def set_emburrito
-      @emburrito = Emburrito.find(params[:id])
+      @emburrito = Emburrito.find(params["id"])
     end
 
     def emburrito_params
